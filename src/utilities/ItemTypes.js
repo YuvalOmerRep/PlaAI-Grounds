@@ -1,3 +1,4 @@
 export const ItemTypes = {
-    PLAYER: "player"
+    PLAYER: "player",
+    WALL: "wall",
 };
