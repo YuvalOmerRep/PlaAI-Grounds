@@ -4,7 +4,7 @@ function Square({ black, children }) {
 
     return (
         <div style={{
-            backgroundColor: "grey",
+            backgroundColor: "white",
             width: "100%",
             height: "100%"
         }}>

@@ -18,11 +18,11 @@ function Board({ size, playerPosition }) {
         const x = i % 8;
         const y = Math.floor(i / 8);
         const isPlayerHere = x === playerX && y === playerY;
-        const piece = isPlayerHere ? <Player /> : <div>0</div>;
+        const piece = isPlayerHere ? <Player /> : <div style={{fontSize: 25, fontWeight: 'bold',}}>⠀</div>;
 
         return (
-            <div className="Square" key={i} style={{ width: '12%', height: '12%' }} onClick={() => movePlayer([x, y])}>
-                <BoardSquare x={x} y={y} >
+            <div className="Square" key={i} style={{ width: '12%'}}>
+                <BoardSquare x={x} y={y} onDrop={() => movePlayer([x, y])} >
                     {piece}
                 </BoardSquare>
             </div>

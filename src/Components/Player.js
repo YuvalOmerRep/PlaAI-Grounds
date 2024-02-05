@@ -17,7 +17,7 @@ function Player() {
                 opacity: isDragging? 0.5: 1,
                 fontSize: 25,
                 fontWeight: 'bold',
-                cursor: isDragging? 'grabbing': 'grab',
+                cursor:'grabbing',
             }}>
             ♘
         </div>
