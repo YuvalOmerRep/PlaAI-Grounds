@@ -3,16 +3,16 @@ import Square from './Square'
 import { ItemTypes } from '../utilities/ItemTypes'
 import { useDrop } from 'react-dnd'
 
-function BoardSquare({ x, y, onDrop, children }) {
+function BoardSquare({pos, onDrop, children }) {
   const [{ isOver }, drop] = useDrop(
     () => ({
-      accept: ItemTypes.PLAYER,
+      accept: [ItemTypes.PLAYER, ItemTypes.WALL],
       drop: onDrop,
       collect: (monitor) => ({
         isOver: !!monitor.isOver()
       })
     }),
-    [x, y]
+    [pos]
   )
   return (
     <div

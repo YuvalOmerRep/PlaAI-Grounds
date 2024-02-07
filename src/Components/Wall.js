@@ -2,7 +2,7 @@ import React from 'react';
 import { ItemTypes } from '../utilities/ItemTypes'
 import { useDrag } from 'react-dnd'
 
-function wall() {
+function Wall() {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.WALL,
         collect: monitor => ({
@@ -24,4 +24,4 @@ function wall() {
     );
 }
 
-export default wall
+export default Wall

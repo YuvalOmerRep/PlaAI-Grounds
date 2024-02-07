@@ -1,36 +1,49 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import BoardSquare from './BoardSquare';
 import Player from './Player';
+import Wall from './Wall';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import update from 'immutability-helper';
+import { ItemTypes } from '../utilities/ItemTypes';
 
-function Board({ size, playerPosition }) {
-    const [playerPos, setPlayerPos] = useState(playerPosition);
+
+function Board({ size, ObjectsInBoard }) {
+    const [objectsPos, setObjectsPos] = useState(ObjectsInBoard);
 
     const squares = [];
 
-    const movePlayer = ([x, y]) => {
-        setPlayerPos([x, y]);
-    };
+    const moveObj = useCallback((item, x) => {
+        let { name } = item;
+        setObjectsPos(update(objectsPos, { [x]: { $set: name } }));
+    }, [objectsPos]);
 
-    const renderSquare = (i, [playerX, playerY]) => {
-        const x = i % 8;
-        const y = Math.floor(i / 8);
-        const isPlayerHere = x === playerX && y === playerY;
-        const piece = isPlayerHere ? <Player /> : <div style={{fontSize: 25, fontWeight: 'bold',}}>⠀</div>;
+    const chooseComponent = useCallback((item) => {
+        switch(item) {
+            case ItemTypes.PLAYER:
+                return <Player/>;
+            case ItemTypes.WALL:
+                return <Wall/>;
+            default:
+                return <div style={{ fontSize: 25, fontWeight: 'bold', }}>⠀</div>;
+        };
+    });
+
+    const renderSquare = useCallback((i) => {
+        const whatIsHere = objectsPos[i];
 
         return (
-            <div className="Square" key={i} style={{ width: '12%'}}>
-                <BoardSquare x={x} y={y} onDrop={() => movePlayer([x, y])} >
-                    {piece}
+            <div className="Square" key={i} style={{ width: `${Math.floor(100 / size)}%` }}>
+                <BoardSquare pos={i} onDrop={(item) => moveObj(item, i)} >
+                    {chooseComponent(whatIsHere)}
                 </BoardSquare>
             </div>
         );
-    };
+    }, [objectsPos]);
 
     for (let i = 0; i < size ** 2; i++) {
-        squares.push(renderSquare(i, playerPos));
+        squares.push(renderSquare(i));
     };
 
 
