@@ -21,7 +21,7 @@ function Piece({ type, name }) {
             default:
                 return "⠀";
         };
-    });
+    }, [type]);
 
     return (
         <div

@@ -13,14 +13,25 @@ function Board({ size, ObjectsInBoard }) {
 
     const squares = [];
 
-    const moveObj = useCallback((item, x) => {
-        let { name } = item;
-        console.log(`${name} was dropped at ${x}`);
-        setObjectsPos(update(objectsPos, { [x]: { $set: name } }));
-    }, [objectsPos]);
+    const moveObj = useCallback(
+        (item, x) => {
+            const { type, name } = item;
+            setObjectsPos(
+                update(objectsPos, {
+                    [x]: {
+                        type: {
+                            $set: type,
+                        },
+                        name: {
+                            $set: name,
+                        },
+                    },
+                }),
+            );
+        }, [objectsPos]);
 
     const renderSquare = useCallback((i) => {
-        let { type, name } = objectsPos[i];
+        const { type, name } = objectsPos[i];
         return (
             <div className="Square" key={i} style={{ width: `${Math.floor(100 / size)}%` }}>
                 <BoardSquare pos={i} onDrop={(item) => moveObj(item, i)} >
