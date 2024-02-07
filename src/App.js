@@ -4,8 +4,8 @@ import { ItemTypes } from './utilities/ItemTypes';
 
 function App() {
 
-  const generateBoardPositions = (pos) => {
-    let arr = [].fill({type: null, name: null});
+  const generateBoardPositions = (pos, size) => {
+    let arr = Array(size ** 2).fill({type: ItemTypes.EMPTY, name: ItemTypes.EMPTY});
     arr[pos] = {type: ItemTypes.PLAYER, name: ItemTypes.PLAYER};
     arr[5] = {type: ItemTypes.WALL, name: ItemTypes.WALL};;
     return arr;
@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       TrAIning Grounds
-      <Board size={8} ObjectsInBoard={generateBoardPositions(0)}/>
+      <Board size={8} ObjectsInBoard={generateBoardPositions(0, 8)}/>
     </div>
   );
 };
