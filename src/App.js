@@ -5,8 +5,9 @@ import { ItemTypes } from './utilities/ItemTypes';
 function App() {
 
   const generateBoardPositions = (pos) => {
-    let arr = [];
-    arr[pos] = ItemTypes.PLAYER;
+    let arr = [].fill({type: null, name: null});
+    arr[pos] = {type: ItemTypes.PLAYER, name: ItemTypes.PLAYER};
+    arr[5] = {type: ItemTypes.WALL, name: ItemTypes.WALL};;
     return arr;
   };
 
